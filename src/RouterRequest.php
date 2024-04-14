@@ -8,13 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 class RouterRequest
 {
     /** @var string $validMethods Valid methods for Router */
-    protected $validMethods = 'GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH|ANY|AJAX|XGET|XPOST|XPUT|XDELETE|XPATCH';
+    protected string $validMethods = 'GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH|ANY|AJAX|XGET|XPOST|XPUT|XDELETE|XPATCH';
 
     /** @var Request $request */
-    private $request;
+    private Request $request;
 
     /** @var Response $response */
-    private $response;
+    private Response $response;
 
     /**
      * RouterRequest constructor.
@@ -63,7 +63,7 @@ class RouterRequest
     public function validMethod(string $data, string $method): bool
     {
         $valid = false;
-        if (strstr($data, '|')) {
+        if (str_contains($data, '|')) {
             foreach (explode('|', $data) as $value) {
                 $valid = $this->checkMethods($value, $method);
                 if ($valid) {
@@ -108,7 +108,7 @@ class RouterRequest
                 return true;
             }
 
-            if ($this->request->isXmlHttpRequest() && strpos($value, 'X') === 0
+            if ($this->request->isXmlHttpRequest() && str_starts_with($value, 'X')
                 && $method === ltrim($value, 'X')) {
                 return true;
             }

@@ -18,25 +18,25 @@ class RouterCommand
     protected static $instance = null;
 
     /** @var string */
-    protected $baseFolder;
+    protected string $baseFolder;
 
     /** @var array */
-    protected $paths;
+    protected array $paths;
 
     /** @var array */
-    protected $namespaces;
+    protected array $namespaces;
 
     /** @var Request */
-    protected $request;
+    protected Request $request;
 
     /** @var Response */
-    protected $response;
+    protected Response $response;
 
     /** @var array */
-    protected $middlewares = [];
+    protected array $middlewares = [];
 
     /** @var array */
-    protected $markedMiddlewares = [];
+    protected array $markedMiddlewares = [];
 
     /**
      * RouterCommand constructor.
@@ -177,11 +177,11 @@ class RouterCommand
      * @return mixed
      * @throws Exception
      */
-    public function runRoute($command, array $params = [])
+    public function runRoute(string|Closure $command, array $params = []): mixed
     {
         $info = $this->getControllerInfo();
         if (!is_object($command)) {
-            $invokable = strpos($command, '@') === false;
+            $invokable = !str_contains($command, '@');
             $class = $command;
             if (!$invokable) {
                 [$class, $method] = explode('@', $command);
@@ -247,7 +247,7 @@ class RouterCommand
      * @return Response|mixed
      * @throws ReflectionException
      */
-    protected function runMethodWithParams($function, array $params)
+    protected function runMethodWithParams(array|Closure $function, array $params): mixed
     {
         $reflection = is_array($function)
             ? new ReflectionMethod($function[0], $function[1])
@@ -298,6 +298,7 @@ class RouterCommand
      *
      * @return bool|void
      * @throws ReflectionException
+     * @throws Exception
      */
     protected function runMiddleware(string $command, string $middleware, array $params, array $info)
     {
@@ -307,7 +308,7 @@ class RouterCommand
         if (in_array($command, $this->markedMiddlewares)) {
             return true;
         }
-        array_push($this->markedMiddlewares, $command);
+        $this->markedMiddlewares[] = $command;
 
         if (!method_exists($controller, $middlewareMethod)) {
             $this->exception("{$middlewareMethod}() method is not found in {$middleware} class.");
@@ -320,7 +321,7 @@ class RouterCommand
             exit;
         }
 
-        return $response;
+        return true;
     }
 
     /**
@@ -328,7 +329,7 @@ class RouterCommand
      *
      * @return array|string
      */
-    protected function resolveMiddleware(string $middleware)
+    protected function resolveMiddleware(string $middleware): array|string
     {
         $middlewares = $this->middlewares;
         if (isset($middlewares['middlewareGroups'][$middleware])) {
@@ -348,9 +349,9 @@ class RouterCommand
      *
      * @return Response|mixed
      */
-    public function sendResponse($response)
+    public function sendResponse($response): mixed
     {
-        if (is_array($response) || strpos($this->request->headers->get('Accept') ?? '', 'application/json') !== false) {
+        if (is_array($response) || str_contains($this->request->headers->get('Accept') ?? '', 'application/json')) {
             $this->response->headers->set('Content-Type', 'application/json');
             return $this->response
                 ->setContent($response instanceof Response ? $response->getContent() : json_encode($response))

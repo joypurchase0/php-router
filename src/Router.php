@@ -40,19 +40,19 @@ use Symfony\Component\HttpFoundation\Response;
 class Router
 {
     /** Router Version */
-    const VERSION = '2.5.2';
+    const VERSION = '3.0.0';
 
     /** @var string $baseFolder Base folder of the project */
-    protected $baseFolder;
+    protected string $baseFolder;
 
     /** @var array $routes Routes list */
-    protected $routes = [];
+    protected array $routes = [];
 
     /** @var array $groups List of group routes */
-    protected $groups = [];
+    protected array $groups = [];
 
     /** @var array $patterns Pattern definitions for parameters of Route */
-    protected $patterns = [
+    protected array $patterns = [
         ':all' => '(.*)',
         ':any' => '([^/]+)',
         ':id' => '(\d+)',
@@ -67,46 +67,46 @@ class Router
     ];
 
     /** @var array $namespaces Namespaces of Controllers and Middlewares files */
-    protected $namespaces = [
+    protected array $namespaces = [
         'middlewares' => '',
         'controllers' => '',
     ];
 
     /** @var array $path Paths of Controllers and Middlewares files */
-    protected $paths = [
+    protected array $paths = [
         'controllers' => 'Controllers',
         'middlewares' => 'Middlewares',
     ];
 
     /** @var string $mainMethod Main method for controller */
-    protected $mainMethod = 'main';
+    protected string $mainMethod = 'main';
 
     /** @var string $cacheFile Cache file */
-    protected $cacheFile = '';
+    protected string $cacheFile = '';
 
     /** @var bool $cacheLoaded Cache is loaded? */
-    protected $cacheLoaded = false;
+    protected bool $cacheLoaded = false;
 
     /** @var Closure $errorCallback Route error callback function */
-    protected $errorCallback;
+    protected Closure $errorCallback;
 
     /** @var Closure $notFoundCallback Route exception callback function */
-    protected $notFoundCallback;
+    protected Closure $notFoundCallback;
 
     /** @var array $middlewares General middlewares for per request */
-    protected $middlewares = [];
+    protected array $middlewares = [];
 
     /** @var array $routeMiddlewares Route middlewares */
-    protected $routeMiddlewares = [];
+    protected array $routeMiddlewares = [];
 
     /** @var array $middlewareGroups Middleware Groups */
-    protected $middlewareGroups = [];
+    protected array $middlewareGroups = [];
 
     /** @var RouterRequest */
-    private $request;
+    private RouterRequest $request;
 
     /** @var bool */
-    private $debug = false;
+    private bool $debug = false;
 
     /**
      * Router constructor method.
@@ -170,7 +170,7 @@ class Router
 
         [$route, $callback] = $params;
         $options = $params[2] ?? null;
-        if (strstr($route, ':')) {
+        if (str_contains($route, ':')) {
             $route1 = $route2 = '';
             foreach (explode('/', $route) as $key => $value) {
                 if ($value != '') {
@@ -228,13 +228,13 @@ class Router
     /**
      * Add new route rules pattern; String or Array
      *
-     * @param string|array $pattern
+     * @param array|string $pattern
      * @param string|null $attr
      *
      * @return mixed
      * @throws
      */
-    public function pattern($pattern, string $attr = null)
+    public function pattern(array|string $pattern, string $attr = null)
     {
         if (is_array($pattern)) {
             foreach ($pattern as $key => $value) {
@@ -381,7 +381,7 @@ class Router
         $classMethods = get_class_methods($controller);
         if ($classMethods) {
             foreach ($classMethods as $methodName) {
-                if (!strstr($methodName, '__')) {
+                if (!str_contains($methodName, '__')) {
                     $method = 'any';
                     foreach (explode('|', $this->request->validMethods()) as $m) {
                         if (stripos($methodName, $m = strtolower($m), 0) === 0) {
@@ -741,11 +741,11 @@ class Router
     }
 
     /**
-     * @param array|string $middleware
+     * @param array|string|null $middleware
      *
      * @return array
      */
-    protected function calculateMiddleware($middleware): array
+    protected function calculateMiddleware(array|string|null $middleware): array
     {
         if (is_null($middleware)) {
             return [];
@@ -761,6 +761,7 @@ class Router
      * @param array $params
      *
      * @return void
+     * @throws Exception
      */
     protected function runRouteCommand($command, array $params = []): void
     {

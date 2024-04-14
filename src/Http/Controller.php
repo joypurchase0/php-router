@@ -7,10 +7,10 @@ abstract class Controller extends Http
     /**
      * @var array Before Middlewares
      */
-    public $middlewareBefore = [];
+    public array $middlewareBefore = [];
 
     /**
      * @var array After Middlewares
      */
-    public $middlewareAfter = [];
+    public array $middlewareAfter = [];
 }
