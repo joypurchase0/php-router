@@ -115,7 +115,7 @@ class Router
      * @param Request|null $request
      * @param Response|null $response
      */
-    public function __construct(array $params = [], Request $request = null, Response $response = null)
+    public function __construct(array $params = [], ?Request $request = null, ?Response $response = null)
     {
         $this->baseFolder = realpath(getcwd());
 
