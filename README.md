@@ -1,3 +1,4 @@
+```
 ## Router
 ```
   _____  _    _ _____             _____             _            
@@ -6,52 +7,64 @@
  |  ___/|  __  |  ___/  |______| |  _  // _ \| | | | __/ _ \ '__|
  | |    | |  | | |               | | \ \ (_) | |_| | ||  __/ |   
  |_|    |_|  |_|_|               |_|  \_\___/ \__,_|\__\___|_|   
-
 ```
-**PHP Router**, which also has rich features like Middlewares and Controllers is simple and useful router class for PHP.
 
-![Tests](https://github.com/izniburak/php-router/actions/workflows/run-tests.yml/badge.svg)
-[![Total Downloads](https://poser.pugx.org/izniburak/router/d/total.svg)](https://packagist.org/packages/izniburak/router)
-[![Latest Stable Version](https://poser.pugx.org/izniburak/router/v/stable.svg)](https://packagist.org/packages/izniburak/router)
-[![Latest Unstable Version](https://poser.pugx.org/izniburak/router/v/unstable.svg)](https://packagist.org/packages/izniburak/router)
-[![License](https://poser.pugx.org/izniburak/router/license.svg)](https://packagist.org/packages/izniburak/router)
+**PHP Router**, a simple, powerful, and modern PHP routing class with support for Middlewares and Controllers — now updated for PHP 8.2+ compatibility and actively maintained by [Joy Kalyan](https://joykalyan.guru).
 
-### Features
+![Tests](https://github.com/joypurchase0/router/actions/workflows/run-tests.yml/badge.svg)
+
+---
+
+### 🔥 Fork Highlights (Joy Kalyan Edition)
+
+- PHP 8.2 deprecation fixes
+- Composer package renamed: `joypurchase0/router`
+- Drop-in replacement for `izniburak/router` with the same API
+- Actively maintained by Joy Kalyan: [joykalyan.guru](https://joykalyan.guru)
+
+---
+
+### ✨ Features
 - Supports GET, POST, PUT, DELETE, OPTIONS, PATCH, HEAD, AJAX and ANY request methods
-- Easy access and manage Request and Response via `symfony/http-foundation` package.
-- Controllers support (Example: HomeController@about)
-- Before and after Route Middlewares support
-- Static Route Patterns
-- Dynamic Route Patterns
-- Easy-to-use patterns
-- Adding a new pattern supports. (with RegExp)
-- Namespaces supports.
-- Group Routing
-- Custom 404 and Exception handling
-- Debug mode (Error message open/close)
+- Easy integration with `symfony/http-foundation`
+- Controller support (`HomeController@about`)
+- Before and After Middlewares
+- Static & Dynamic Routes
+- Custom route patterns with RegExp
+- Namespace & Route Grouping
+- Custom 404 & Exception handling
+- Debug mode for dev-friendly errors
 
-## Install
+---
 
-To install **PHP Router**, You can run the following command directly at your project path in your console:
+## 🚀 Install
+
+Install it via Composer:
 
 ```
-$ composer require izniburak/router
+composer require joypurchase0/router
 ```
 
-OR you can add following lines into the `composer.json` file manually:
+Or manually add it to your `composer.json`:
+
 ```json
 {
-    "require": {
-        "izniburak/router": "^2.0"
-    }
+  "require": {
+    "joypurchase0/router": "^2.0"
+  }
 }
 ```
-Then, run the following command:
+
+Then run:
+
 ```
-$ composer install
+composer install
 ```
 
-## Example Usage
+---
+
+## 🧪 Example Usage
+
 ```php
 require 'vendor/autoload.php';
 
@@ -61,51 +74,56 @@ use Symfony\Component\HttpFoundation\Response;
 
 $router = new Router;
 
-// For basic GET URI
+// Basic GET route
 $router->get('/', function(Request $request, Response $response) {
-    $response->setContent('Hello World');
-    return $response;
-
-    # OR
-    # return 'Hello World!';
+    return $response->setContent('Hello World');
 });
 
-// For basic GET URI by using a Controller class.
+// GET with Controller
 $router->get('/test', 'TestController@main');
 
-// For auto discovering all methods and URIs
+// Auto-discovered controller routes
 $router->controller('/users', 'UserController');
 
 $router->run();
 ```
 
-## Docs
-Documentation page: [Buki\Router Docs][doc-url]
+---
 
-Changelogs: [Buki\Router Changelogs][changelog-url]
+## 📚 Docs
 
-## Support
-[izniburak's homepage][author-url]
+See original documentation on [Buki\Router Wiki](https://github.com/izniburak/php-router/wiki)  
+Changelog available at: [Buki\Router Changelogs](https://github.com/izniburak/php-router/wiki/Changelogs)
 
-[izniburak's twitter][twitter-url]
+---
 
-## Licence
-[MIT Licence][mit-url]
+## 🙌 Credits
 
-## Contributing
+- Original Author: [İzni Burak Demirtaş](https://github.com/izniburak) — [Homepage](http://burakdemirtas.org)
+- Fork Maintainer: [Joy Kalyan](https://joykalyan.guru) — [GitHub](https://github.com/joypurchase0)
 
-1. Fork it ( https://github.com/izniburak/php-router/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create a new Pull Request
+---
 
-## Contributors
+## 🤝 Contributing
 
-- [izniburak](https://github.com/izniburak) İzni Burak Demirtaş - creator, maintainer
+1. Fork this repo ( https://github.com/joypurchase0/router )
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Commit changes (`git commit -am 'Add my feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
+5. Open a Pull Request 🚀
 
-[mit-url]: http://opensource.org/licenses/MIT
-[doc-url]: https://github.com/izniburak/php-router/wiki
-[changelog-url]: https://github.com/izniburak/php-router/wiki/Changelogs
-[author-url]: http://burakdemirtas.org
-[twitter-url]: https://twitter.com/izniburak
+---
+
+## 📬 Contact
+
+**Joy Kalyan**  
+🌐 [joykalyan.guru](https://joykalyan.guru)  
+📧 joypurchase0@gmail.com  
+🐙 [github.com/joypurchase0](https://github.com/joypurchase0)
+
+---
+
+## 📄 License
+
+[MIT License](http://opensource.org/licenses/MIT)
+```
