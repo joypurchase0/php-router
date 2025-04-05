@@ -1,17 +1,24 @@
 {
-  "name": "izniburak/router",
+  "name": "joypurchase0/router",
   "type": "library",
-  "description": "simple router class for php",
+  "description": "Fork of Buki\\Router with PHP 8.2 compatibility fix",
   "keywords": [
     "router",
     "route",
-    "routing"
+    "routing",
+    "php-router",
+    "php8.2"
   ],
-  "homepage": "https://github.com/izniburak/php-router",
+  "homepage": "https://github.com/joypurchase0/router",
   "license": "MIT",
   "authors": [
     {
-      "name": "İzni Burak Demirtaş",
+      "name": "Joy Kalyan",
+      "email": "joypurchase0@gmail.com",
+      "homepage": "https://joykalyan.guru"
+    },
+    {
+      "name": "İzni Burak Demirtaş (original author)",
       "email": "info@burakdemirtas.org",
       "homepage": "https://burakdemirtas.org"
     }
